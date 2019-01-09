@@ -11,7 +11,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    return fetch('http://192.168.10.96/')
+    return fetch('http://192.168.0.150/react/')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ dados: responseJson });
@@ -37,7 +37,7 @@ export default class App extends Component {
           onValueChange={(dadosValue, dadosIndex) => this.setState({ select: dadosValue })}>
           <Picker.Item label="SELECIONE UMA CIDADE" value="cidade" />
           {this.state.dados.map((item, key) => (
-            <Picker.Item label={item.cidade} value={item.cidade} key={key} />)
+            <Picker.Item label={item.nome} value={item.nome} key={key} />)
           )}
         </Picker>
 
