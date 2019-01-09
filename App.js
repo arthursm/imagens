@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Picker, FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { baixarAeroportos } from './selectF';
-
+import StarRating from 'react-native-star-rating';
 
 export default class App extends Component {
   state = {
     dados: [],
-    select: 'Não'
+    select: 'Não',    
+    starCount: 0
   }
 
   componentDidMount() {
@@ -22,6 +23,12 @@ export default class App extends Component {
       });
   }
 
+  teste(dadosValue, itemIndex){
+    this.setState({ select: dadosValue }) 
+    //alert(JSON.stringify(this.state.dados[categoria].categoria)) 
+    star = parseInt(this.state.dados[itemIndex].categoria)
+    this.setState({ starCount: star }) 
+  }
   render() {
 
     return (
@@ -34,13 +41,16 @@ export default class App extends Component {
         <Picker
           style={{ height: 50, width: 300 }}
           selectedValue={this.state.select}
-          onValueChange={(dadosValue, dadosIndex) => this.setState({ select: dadosValue })}>
-          <Picker.Item label="SELECIONE UMA CIDADE" value="cidade" />
+          onValueChange={(dadosValue, itemIndex) => this.teste(dadosValue, itemIndex)}> 
           {this.state.dados.map((item, key) => (
             <Picker.Item label={item.nome} value={item.nome} key={key} />)
           )}
         </Picker>
-
+        <Text>Movimentação:</Text><StarRating
+        disabled={true}
+        maxStars={5}
+        rating={this.state.starCount} 
+      />
       </View>
     );
   }
