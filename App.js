@@ -3,6 +3,7 @@ import { Picker, FlatList, StyleSheet, Text, View, TouchableOpacity } from 'reac
 import axios from 'axios';
 import { baixarAeroportos } from './selectF';
 import StarRating from 'react-native-star-rating';
+import { FormLabel, FormInput, Button } from 'react-native-elements'; 
 
 export default class App extends Component {
   state = {
@@ -38,19 +39,40 @@ export default class App extends Component {
           data={this.state.dados}
           renderItem={({ item }) => <Text>{item.cidade}</Text>}
         /> */}
+
+        
+<FormLabel labelStyle={styles.label}> Nome</FormLabel>
+<FormInput inputStyle={styles.input}/> 
+
+<FormLabel labelStyle={styles.label}> Código</FormLabel>
+<FormInput inputStyle={styles.input}/> 
+<FormLabel labelStyle={styles.label}> Aeroporto</FormLabel>
+      <View style={styles.aero}>
         <Picker
-          style={{ height: 50, width: 300 }}
+          style={styles.picker}
           selectedValue={this.state.select}
           onValueChange={(dadosValue, itemIndex) => this.teste(dadosValue, itemIndex)}> 
           {this.state.dados.map((item, key) => (
             <Picker.Item label={item.nome} value={item.nome} key={key} />)
           )}
         </Picker>
-        <Text>Movimentação:</Text><StarRating
+      </View>
+        
+<FormLabel labelStyle={styles.label}> Movimentação</FormLabel>
+      <View style={styles.star}>
+      <StarRating 
         disabled={true}
         maxStars={5}
         rating={this.state.starCount} 
       />
+      </View>
+<FormLabel labelStyle={styles.label}> Slots </FormLabel>
+
+
+<FormLabel labelStyle={styles.label}> Hubs</FormLabel>
+<Button
+  title='BUTTON' />
+
       </View>
     );
   }
@@ -59,18 +81,32 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flexDirection: 'column',
+    justifyContent: 'center', 
+    backgroundColor: '#ccc', 
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  label:{
+    color: '#000',
+    fontWeight: 'normal',
+    fontSize: 16,
+    paddingTop: 4
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  input:{
+    borderBottomWidth: 1,
   },
+  picker:{
+    height: 40, 
+    width: 350,
+    color: '#000',
+  },
+  aero:{
+    maxWidth: 100,
+    marginLeft: 20,
+    marginTop: 10
+  },
+  star:{ 
+    marginLeft: 20,
+    marginTop: 10,
+    marginRight: 20
+  }
 });
