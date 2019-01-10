@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { ScrollView, Picker, Image, StyleSheet, Text, View, ImageBackground, Button, TouchableOpacity, TextInput, Slider, DatePickerIOS, PickerIOS } from 'react-native';
 import StarRating from 'react-native-star-rating';
-
+import { Url } from './apiF';
 export default class App extends Component {
   state = {
     dados: [],
@@ -19,7 +19,7 @@ export default class App extends Component {
 
   componentDidMount() {
 
-    return fetch('http://192.168.10.96/')
+    return fetch(Url + "index.php")
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ dados: responseJson });
@@ -34,7 +34,7 @@ export default class App extends Component {
     if (nome == ver || codigo == ver || iata == ver) {
       alert('Preencha todos os campos')
     } else {
-      fetch("http://192.168.10.96/teste.php", {
+      fetch(Url + "teste.php", {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json',
