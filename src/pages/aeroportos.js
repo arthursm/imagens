@@ -5,8 +5,9 @@ import StarRating from 'react-native-star-rating';
 import { Url } from '../services/apiF';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { Table, Col, Cols, Cell, TableWrapper, Row } from 'react-native-table-component';
+import { Table, Col, Cols, Cell, TableWrapper, Row, Rows } from 'react-native-table-component';
 import { styles } from './styles/subFabricante.css';
+import { strings } from './strings';
 
 export default class Aeroportos extends Component {
     state = {
@@ -29,11 +30,7 @@ export default class Aeroportos extends Component {
         ver: '',
         text: '',
         tableHead: ['Informações'],
-        tableHead2: ['Principais Operadores'],
-        tableHead3: ['Encomenda'],
-        tableColumn: [['Preço'], ['Codigo'], ['Fabricante'], ['Produção'], ['Produzidos'], ['Popularidade'], ['Tripulação'], ['Passageiros'], ['Alcance'], ['Velocidade'], ['Pista Mínima']],
-        tableOperadores: [['United America (11)'], ['LATAM Brasil (9)'], ['LATAM Chile (8)'], ['Avianca (7)'], ['Avianca Colombia (6)'], ['Avianca Colombia (6)'], ['Avianca Colombia (6)'], ['Avianca Colombia (6)'], ['Avianca Colombia (6)'], ['Outros (58)']],
-        tableData: [['A$ 252.256.254'], ['A330'], ['Airbus'], ['1 / 25h'], ['235'], ['3.4'], ['2'], ['220'], ['4536 km'], ['890 km/h'], ['3356 m']]
+        widthArr: [wp('25%'), wp('7%'), wp('50%')]
     }
     _menu = null;
     _menu2 = null;
@@ -46,11 +43,12 @@ export default class Aeroportos extends Component {
     setMenuRef4 = ref4 => { this._menu4 = ref4 }; hideMenu4 = () => { this._menu4.hide() }; showMenu4 = () => { this._menu4.show() };
 
     componentDidMount() {
+        alert(strings.how)
         return fetch(Url + "index.php")
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({ dados: responseJson });
-                alert(JSON.stringify(responseJson));
+                // alert(JSON.stringify(responseJson));
             })
             .catch((error) => {
                 alert(error);
@@ -113,6 +111,7 @@ export default class Aeroportos extends Component {
             const rowData2 = [];
             tableOperadores.push(rowData2);
         }
+        const testes2 = 'This is a test';
         return (
             <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -167,66 +166,27 @@ export default class Aeroportos extends Component {
                             </View>
                         </View>
 
-                        <Image
-                            style={styles.aircraft}
-                            source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/lustrequalquer.appspot.com/o/air%2F15.jpg?alt=media&token=a3e2be72-e1eb-45a3-9933-e1526b89c43b' }}
-                        />
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={this.state.quantidade}
+                            onValueChange={(itemValue, itemIndex) => this.setState({ quantidade: itemValue })}>
+                            <Picker.Item label="Escolha um continente" value="0" />
+                            <Picker.Item label="Ásia" value="2" />
+                            <Picker.Item label="Africa" value="3" />
+                            <Picker.Item label="América Central / Sul" value="4" />
+                            <Picker.Item label="América do Norte" value="5" />
+                            <Picker.Item label="Europa" value="5" />
+                            <Picker.Item label="Oceania" value="5" />
+                        </Picker>
+
+
                         <View>
-                            <Table borderStyle={{ borderColor: '#353b48' }}>
-                                <Row data={this.state.tableHead} style={styles.header} textStyle={styles.textHeader} />
-                            </Table>
-                            <Table borderStyle={{ borderColor: '#C1C0B9' }}>
-                                {
-                                    tableData.map((rowData, index) => (
-                                        <Row key={index} data={[this.state.dados.cidade, this.state.tableData[index]]} style={styles.head} textStyle={styles.text} />
-                                    ))
+                            <Table borderStyle={{ borderWidth: 2, borderColor: '#C1C0B9' }}>
+                                {this.state.dados.map((rowData2, index) => (
+                                    <Row widthArr={this.state.widthArr} key={index} data={[this.state.dados[index].cidade, this.state.dados[index].iata, this.state.dados[index].aeroporto]} style={styles.head} textStyle={styles.text} />))
                                 }
-                            </Table>
-
-                            <Table style={{ marginTop: 10 }} borderStyle={{ borderColor: '#353b48' }}>
-                                <Row data={this.state.tableHead2} style={styles.header} textStyle={styles.textHeader} />
-                            </Table>
-                            <Table borderStyle={{ borderColor: '#C1C0B9' }}>
-                                {
-                                    tableOperadores.map((rowData2, index) => (
-                                        <Row key={index} data={[this.state.tableOperadores[index]]} style={styles.head} textStyle={styles.text} />
-                                    ))
-                                }
-                            </Table>
-
-                            <Table style={{ marginTop: 10 }} borderStyle={{ borderColor: '#353b48' }}>
-                                <Row data={this.state.tableHead3} style={styles.header} textStyle={styles.textHeader} />
-                            </Table>
-                            <Table borderStyle={{ borderColor: '#C1C0B9' }}>
-                                <Picker
-                                    style={styles.picker}
-                                    selectedValue={this.state.info[this.state.id].title}
-                                    onValueChange={(dadosValue) => this.mudarTexto(dadosValue)}>
-                                    {this.state.info.map((item, key) => (
-                                        <Picker.Item label={item.title} value={item.id} key={key} />)
-                                    )}
-                                </Picker>
-
-                                {
-                                    tableOperadores.map((rowData2, index) => (
-                                        <Row key={index} data={[this.state.tableOperadores[index]]} style={styles.head} textStyle={styles.text} />
-                                    ))
-                                }
-                                <Picker
-                                    style={styles.picker}
-                                    selectedValue={this.state.quantidade}
-                                    onValueChange={(itemValue, itemIndex) => this.setState({ quantidade: itemValue })}>
-                                    <Picker.Item label="1" value="1" />
-                                    <Picker.Item label="2" value="2" />
-                                    <Picker.Item label="3" value="3" />
-                                    <Picker.Item label="4" value="4" />
-                                    <Picker.Item label="5" value="5" />
-                                </Picker>
-
-
                             </Table>
                         </View>
-
                     </SafeAreaView>
                 </ScrollView>
             </View>

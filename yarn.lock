@@ -3447,6 +3447,11 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
+localized-strings@^0.2.00:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/localized-strings/-/localized-strings-0.2.1.tgz#4ecd9458ac9894bfb13b307551d9d8b92e4b4c51"
+  integrity sha512-WYARgs2tUJizhaHENG46Wrey5c0u1cR+HNN2cGGkbJy4KfibsvgjC/izUok9rO3xlfKPRLxzr/WJzg7zrDCHLg==
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -4591,6 +4596,14 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-localization@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/react-localization/-/react-localization-1.0.13.tgz#7a1da114c61c8b4814fed2abc699b45ad6bb32b8"
+  integrity sha512-VKbcCpf6FnjhUs1QpEpxGeZCVyAGRknk58w1fG4L4CWHfju/v9A6eyPgRnw6WmKgn2A5EJZt9ewkiP1pQFEwEA==
+  dependencies:
+    localized-strings "^0.2.00"
+    react "^16.0.0"
+
 react-native-animatable@^1.2.4:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.1.tgz#f004a7e9de6838d0fbf210d642593cff7affd9ef"
@@ -4630,6 +4643,14 @@ react-native-dropdown-menu@^2.0.0:
   integrity sha1-HZ5mFNw3mbeeMVH4pU+y2Dx9iZ8=
   dependencies:
     prop-types "^15.6.1"
+
+react-native-localization@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-localization/-/react-native-localization-2.0.3.tgz#1f811350a76833628f345d8338e06a63cbf9f4f8"
+  integrity sha512-uCCKHMxO4dE2eUUzOIXbdFgZT0/gRxalocxniroA3eRHkPDPSfbzZJ47B7nztHVa6oO9CqSV+J1Io8lRD57oEw==
+  dependencies:
+    react "^16.0.0"
+    react-localization "^1.0.13"
 
 react-native-material-menu@^0.4.2:
   version "0.4.2"
@@ -4848,6 +4869,16 @@ react@16.6.3:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.11.2"
+
+react@^16.0.0:
+  version "16.7.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.7.0.tgz#b674ec396b0a5715873b350446f7ea0802ab6381"
+  integrity sha512-StCz3QY8lxTb5cl2HJxjwLFOXPIFQp+p+hxQfc8WE0QiLfCtIlKj8/+5tjjKm8uSTlAW+fCPaavGFS06V9Ar3A==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.12.0"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -5170,6 +5201,14 @@ scheduler@^0.11.2:
   version "0.11.3"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.11.3.tgz#b5769b90cf8b1464f3f3cfcafe8e3cd7555a2d6b"
   integrity sha512-i9X9VRRVZDd3xZw10NY5Z2cVMbdYg6gqFecfj79USv1CFN+YrJ3gIPRKf1qlY+Sxly4djoKdfx1T+m9dnRB8kQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.12.0.tgz#8ab17699939c0aedc5a196a657743c496538647b"
+  integrity sha512-t7MBR28Akcp4Jm+QoR63XgAi9YgCUmgvDHqf5otgAj4QvdoBE4ImCX0ffehefePPG+aitiYHp0g/mW6s4Tp+dw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
