@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { ScrollView, Picker, Image, StyleSheet, Text, View, ImageBackground, Button, TouchableOpacity, TextInput, Slider, DatePickerIOS, PickerIOS } from 'react-native';
 import StarRating from 'react-native-star-rating';
-import { Url } from './apiF';
-export default class App extends Component {
+import { Url } from './services/apiF';
+export default class Cadastro extends Component {
   state = {
     dados: [],
     select: '',
@@ -43,7 +43,7 @@ export default class App extends Component {
       })
         .then((response) => response.text())
         .then((responseText) => {
-          alert(responseText);
+          this.props.navigation.navigate("Home")
         })
         .catch((error) => {
           alert(error);
@@ -51,7 +51,7 @@ export default class App extends Component {
     }
   }
 
-  teste(dadosValue, itemIndex) {
+  retornaValores(dadosValue, itemIndex) {
     this.setState({ select: dadosValue })
     this.setState({ iata: this.state.dados[itemIndex].iata })
     //alert(JSON.stringify(this.state.dados[categoria].categoria)) 
@@ -88,7 +88,7 @@ export default class App extends Component {
                 <Picker
                   style={styles.picker}
                   selectedValue={this.state.select}
-                  onValueChange={(dadosValue, itemIndex) => this.teste(dadosValue, itemIndex)}>
+                  onValueChange={(dadosValue, itemIndex) => this.retornaValores(dadosValue, itemIndex)}>
                   {this.state.dados.map((item, key) => (
                     <Picker.Item label={item.nome} value={item.iata} key={key} />)
                   )}
