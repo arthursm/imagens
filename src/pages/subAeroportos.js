@@ -6,9 +6,9 @@ import { Url } from '../services/apiF';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Table, Col, Cols, Cell, TableWrapper, Row, Rows } from 'react-native-table-component';
-import { styles } from './styles/subFabricante.css'; 
+import { styles } from './styles/subFabricante.css';    
 
-export default class Aeroportos extends Component {
+export default class SubAeroportos extends Component {
     state = {
         dados: [], 
         id: 0,
@@ -23,10 +23,8 @@ export default class Aeroportos extends Component {
         iata: 'AUH',
         ver: '',
         text: '',
-        tableHead: ['Informações'],
-        widthArr: [wp('25%'), wp('7%'), wp('50%')],
-        paises: [], 
-        pais: []
+        tableHead: ['Cidade','Código','M', 'Slots', 'Ação'],
+        widthArr: [wp('50%'), wp('15%'), wp('6%'), wp('18%'), wp('10.9%'),]
     }
     _menu = null;
     _menu2 = null;
@@ -37,55 +35,26 @@ export default class Aeroportos extends Component {
     setMenuRef2 = ref2 => { this._menu2 = ref2 }; hideMenu2 = () => { this._menu2.hide() }; showMenu2 = () => { this._menu2.show() };
     setMenuRef3 = ref3 => { this._menu3 = ref3 }; hideMenu3 = () => { this._menu3.hide() }; showMenu3 = () => { this._menu3.show() };
     setMenuRef4 = ref4 => { this._menu4 = ref4 }; hideMenu4 = () => { this._menu4.hide() }; showMenu4 = () => { this._menu4.show() };
- 
-    componentDidMount() {  
-        return fetch(Url + "paises.php")
-        .then((response) => response.json())
-        .then((responseJson) => {  
-            this.setState({ paises: responseJson });  
+
+    componentDidMount() { 
+        const { itemPais } = this.props.navigation.state.params
+        
+        fetch(Url + "aeroportos.php", {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ cont: itemPais })
         })
-        .catch((error) => {
-            // alert(error);
-        }); 
-    }   
-    enviarDados(nome, codigo, slot, iata, ver) {
-
-        if (nome == ver || codigo == ver || iata == ver) {
-            alert('Preencha todos os campos')
-        } else {
-            fetch(Url + "teste.php", {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                }),
-                body: JSON.stringify({ nome: nome, codigo: codigo, slot: slot, iata: iata })
+            .then((response) => response.json())
+            .then((responseJson) => { 
+                // alert(JSON.stringify(responseJson))
+                this.setState({ dados: responseJson });
             })
-                .then((response) => response.text())
-                .then((responseText) => {
-                    alert(responseText);
-                })
-                .catch((error) => {
-                    alert(error);
-                });
-        }
-    }
-
-    retornaValores(dadosValue, itemIndex) {
-        this.setState({ select: dadosValue })
-        this.setState({ iata: this.state.dados[itemIndex].iata })
-        //alert(JSON.stringify(this.state.dados[categoria].categoria)) 
-        star = parseInt(this.state.dados[itemIndex].categoria)
-        this.setState({ starCount: star })
-        // alert(this.state.dados[itemIndex].iata)
-    }
-    paisSelecionado(valor){  
-        if(valor != undefined){ 
-            this.setState({ select: valor }) 
-            this.props.navigation.navigate("SubAeroportos", { itemPais: valor });
-        }else{  
-
-        }
-    } 
+            .catch((error) => {
+                alert(error);
+            });
+    }   
     render() { 
         return (
             <View style={styles.container}>
@@ -139,16 +108,20 @@ export default class Aeroportos extends Component {
                                     <Text style={styles.texto}> A$  124.124.324.234</Text>
                                 </TouchableOpacity>
                             </View>
-                        </View> 
-                            <Picker
-                              style={styles.picker}
-                              selectedValue={this.state.select}
-                              onValueChange={(dadosValue, itemIndex) => this.paisSelecionado(dadosValue)}>
-                                <Picker.Item label="Escolha um país"/>
-                              {this.state.paises.map((item, key) => (
-                                <Picker.Item label={item.pais} value={item.iso_c} key={key} />)
-                              )}
-                            </Picker> 
+                        </View>
+                         
+ 
+
+                        <View>
+                            <Table borderStyle={{ borderColor: '#fff' }}>
+                                <Row  widthArr={this.state.widthArr} data={this.state.tableHead} style={styles.header} textStyle={styles.textHeader} />
+                            </Table>
+                            <Table borderStyle={{ borderWidth: 2, borderColor: '#C1C0B9' }}>
+                                {this.state.dados.map((rowData, index) => (
+                                    <Row widthArr={this.state.widthArr} key={index} data={[this.state.dados[index].cidade, this.state.dados[index].iata, this.state.dados[index].categoria, this.state.dados[index].slots]} style={styles.head} textStyle={styles.text} />))
+                                }
+                            </Table>
+                        </View>  
                     </SafeAreaView>
                 </ScrollView>
             </View>

@@ -1,6 +1,7 @@
 import { createStackNavigator, DrawerNavigator } from "react-navigation";
 
 import Aeroportos from "./pages/aeroportos";
+import SubAeroportos from "./pages/subAeroportos";
 import Cadastro from "./cadastro";
 import Home from "./pages/home";
 import Fabricante from "./pages/fabricante"
@@ -11,6 +12,7 @@ let titulo = "Informações";
 export default createStackNavigator(
   {
     Aeroportos,
+    SubAeroportos,
     Fabricante,
     SubFabricante,
     Home,
